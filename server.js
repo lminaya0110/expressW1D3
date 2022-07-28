@@ -13,6 +13,8 @@ app.engine('hypatia', (filePath, options, callback) => {
     })
 })
 
+let responses = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely","You may rely on it", "As I see it yes", "Most likely", "Outlook good","Yes", "Signs point to yes", "Reply hazy try again", "Ask again later","Better not tell you now", "Cannot predict now", "Concentrate and ask again","Don't count on it", "My reply is no", "My sources say no","Outlook not so good", "Very doubtful"]
+
 app.set('views', './views')
 
 app.set('views engine', 'hypatia')
@@ -36,6 +38,10 @@ app.get('/tip/:total',(req, res) =>{
 app.get('tip/:total/:percentage', (req,res) => {
     let tip = req.params.total = (req.params.percentage/100)
     res.render('template', {title: 'TIP', message: 'your subtotal is $' + req.params.total + 'tip will be $' + tip})
+})
+
+app.get('/magic/:question', (req,res) => {
+    res.send(req.params.question + ' ...Magic 8 ball says.. ' + responses[Math.floor(Math.random() * responses.length)])
 })
 
 app.listen(3000)
